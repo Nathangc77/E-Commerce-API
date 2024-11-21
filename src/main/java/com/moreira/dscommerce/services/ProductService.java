@@ -32,4 +32,11 @@ public class ProductService {
         return dto;
     }
 
+    @Transactional
+    public ProductDTO insert(ProductDTO dto) {
+        Product entity = new Product(dto.getId(), dto.getName(), dto.getDescription(), dto.getPrice(), dto.getImgUrl());
+        entity = productRepository.save(entity);
+        return new ProductDTO(entity);
+    }
+
 }
