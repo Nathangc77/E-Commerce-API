@@ -3,10 +3,10 @@ package com.moreira.dscommerce.services;
 import com.moreira.dscommerce.dto.ProductDTO;
 import com.moreira.dscommerce.entities.Product;
 import com.moreira.dscommerce.repositories.ProductRepository;
+import com.moreira.dscommerce.services.exceptions.DataIntegrityViolationException;
 import com.moreira.dscommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
-        Page<Product> result = productRepository.findAll(pageable);
+    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+        Page<Product> result = productRepository.searchByName(name, pageable);
         return result.map(x -> new ProductDTO(x));
     }
 

@@ -2,9 +2,9 @@ package com.moreira.dscommerce.controllers.handlers;
 
 import com.moreira.dscommerce.dto.CustomError;
 import com.moreira.dscommerce.dto.ValidationError;
+import com.moreira.dscommerce.services.exceptions.DataIntegrityViolationException;
 import com.moreira.dscommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
