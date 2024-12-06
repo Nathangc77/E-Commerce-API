@@ -1,7 +1,9 @@
 package com.moreira.dscommerce.services;
 
+import com.moreira.dscommerce.dto.CategoryDTO;
 import com.moreira.dscommerce.dto.ProductDTO;
 import com.moreira.dscommerce.dto.ProductMinDTO;
+import com.moreira.dscommerce.entities.Category;
 import com.moreira.dscommerce.entities.Product;
 import com.moreira.dscommerce.repositories.ProductRepository;
 import com.moreira.dscommerce.services.exceptions.DataIntegrityViolationException;
@@ -73,6 +75,11 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+        for (CategoryDTO catDto : dto.getCategories()) {
+            entity.getCategories().add(new Category(catDto.getId(), catDto.getName()));
+        }
     }
 
 }
