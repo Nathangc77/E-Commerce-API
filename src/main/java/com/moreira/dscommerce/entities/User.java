@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name ="role_id"))
-    private Set<Role> roles = new HashSet<>();
+    Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -83,8 +83,38 @@ public class User implements UserDetails {
         this.birthDate = birthDate;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -105,16 +135,6 @@ public class User implements UserDetails {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
     }
 
     @Override
