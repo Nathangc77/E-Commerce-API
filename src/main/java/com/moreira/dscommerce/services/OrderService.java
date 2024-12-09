@@ -7,7 +7,6 @@ import com.moreira.dscommerce.repositories.OrderItemRepository;
 import com.moreira.dscommerce.repositories.OrderRepository;
 import com.moreira.dscommerce.repositories.ProductRepository;
 import com.moreira.dscommerce.services.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +28,15 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado")
         );
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
     }
 
