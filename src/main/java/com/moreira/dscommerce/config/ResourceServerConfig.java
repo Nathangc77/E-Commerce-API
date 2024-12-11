@@ -84,5 +84,9 @@ public class ResourceServerConfig {
 		return source;
 	}
 
+	@Bean
+	CorsFilter corsFilter() {
+		return new CorsFilter(corsConfigurationSource());
+	}
 
 }
