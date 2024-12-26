@@ -14,7 +14,7 @@ Siga o passo a passo abaixo para configurar e rodar o projeto localmente:
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/Nathangc77/Tech-Point.git
+   git clone https://github.com/Nathangc77/E-Commerce-API.git
    ```
 
 2. **Certifique-se de ter as tecnologias necessárias instaladas:**
