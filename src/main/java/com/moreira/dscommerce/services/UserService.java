@@ -5,13 +5,11 @@ import com.moreira.dscommerce.entities.Role;
 import com.moreira.dscommerce.entities.User;
 import com.moreira.dscommerce.projections.UserDetailsProjection;
 import com.moreira.dscommerce.repositories.UserRepository;
+import com.moreira.dscommerce.util.CustomUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +19,10 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private CustomUserUtil customUserUtil;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,10 +45,7 @@ public class UserService implements UserDetailsService {
 
     protected User authenticated() {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
-            String username = jwtPrincipal.getClaim("username");
-
+            String username = customUserUtil.getLoggedUsername();
             return userRepository.findByEmail(username).get();
         } catch (Exception e) {
             throw new UsernameNotFoundException("User not found");
