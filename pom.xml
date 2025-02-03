@@ -116,8 +116,9 @@
 						<exclude>com/moreira/dscommerce/config/**</exclude>
 						<exclude>com/moreira/dscommerce/entities/**</exclude>
 						<exclude>com/moreira/dscommerce/dto/**</exclude>
-						<exclude>com/moreira/dscommerce/controllers/handlers/**</exclude>
+						<exclude>com/moreira/dscommerce/controllers/**</exclude>
 						<exclude>com/moreira/dscommerce/services/exceptions/**</exclude>
+						<exclude>com/moreira/dscommerce/util/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
